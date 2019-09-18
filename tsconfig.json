@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist/out-tsc",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "es2015",
+        "esModuleInterop": true
+    },
+    "include": [
+        "./*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.test.ts"
+    ]
+}
+
