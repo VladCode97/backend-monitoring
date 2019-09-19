@@ -30,12 +30,18 @@ export default class AdmintratorRoute {
         return handleMessages(response, client);
     }
 
-
-    @HttpCode(201)
+    @HttpCode(200)
     @Get('/viewUsers')
+    async viewUsers(@Res() response: any) {
+        let users = await this.userService.viewUsers();
+        return handleMessages(response, users);
+    }
+
+    @HttpCode(200)
+    @Get('/viewClients')
     async viewClients(@Res() response: any) {
-        let client = await this.userService.viewUsers();
-        return handleMessages(response, client);
+        let clients = await this.clientService.viewClients();
+        return handleMessages(response, clients);
     }
 }
 

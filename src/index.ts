@@ -1,5 +1,5 @@
 import { useExpressServer, useContainer } from 'routing-controllers';
-import {Container} from 'typedi';
+import { Container } from 'typedi';
 import 'reflect-metadata';
 import { connect } from 'mongoose';
 import Morgan from 'morgan';
@@ -45,3 +45,5 @@ useExpressServer(server, {
  * Listen Server
  */
 server.listen(process.env.PORT, () => console.log(`http://localhost:${process.env.PORT}`));
+
+export default server;

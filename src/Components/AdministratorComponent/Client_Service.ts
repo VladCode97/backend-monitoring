@@ -25,7 +25,7 @@ export default class ClientService extends BaseService<ClientInterface> {
     }
 
 
-    async viewClient(): Promise<ClientInterface[]> {
+    async viewClients(): Promise<ClientInterface[]> {
         let users = await this.views();
         return Promise.resolve(users);
     }
