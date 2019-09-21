@@ -1,4 +1,4 @@
-import { JsonController, Get, Post, Body, Res, OnUndefined, HttpCode } from 'routing-controllers';
+import { JsonController, Get, Post, Body, Res, OnUndefined, HttpCode, Put } from 'routing-controllers';
 import UserService from './User_Service';
 import handleMessages from '../../Handlers/Handle_Messages';
 import CLientService from './Client_Service';
@@ -42,6 +42,13 @@ export default class AdmintratorRoute {
     async viewClients(@Res() response: any) {
         let clients = await this.clientService.viewClients();
         return handleMessages(response, clients);
+    }
+
+    @HttpCode(200)
+    @Put('/updateHostByClient')
+    async updateHostByClient(@Body({ required: true }) clientRequest: any, @Res() response: any) {
+        let client = await this.clientService.updateHostOfClient(clientRequest);
+        return handleMessages(response, client);
     }
 }
 

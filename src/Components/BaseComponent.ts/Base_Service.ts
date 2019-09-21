@@ -22,7 +22,7 @@ export default class BaseService<T extends Document> {
 
 
     updateByFilter(conditions = {}, objectUpdate = {}) {
-        return this.modelSchema.findByIdAndUpdate(
+        return this.modelSchema.findOneAndUpdate(
             { ...conditions },
             { ...objectUpdate },
             { new: true }
