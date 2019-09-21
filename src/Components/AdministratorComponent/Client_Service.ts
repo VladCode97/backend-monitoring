@@ -2,6 +2,7 @@ import BaseService from "../BaseComponent.ts/Base_Service";
 import ClientInterface from '../../Interfaces/Client_Interface';
 import ClientModel from '../../Lib/Client_Schema';
 import { Service } from "typedi";
+import HanldeEmail from "../../Handlers/Handle-Email";
 
 @Service()
 export default class ClientService extends BaseService<ClientInterface> {
@@ -11,12 +12,14 @@ export default class ClientService extends BaseService<ClientInterface> {
         super(ClientModel);
     }
 
-    async createClient(ClientRequest: any = {}): Promise<String> {
+    async createClient(clientRequest: any = {}): Promise<String> {
         try {
-            let client = (await this.create(ClientRequest));
+            let client = (await this.create(clientRequest));
             if (client !== undefined && client.code === 11000) {
                 return Promise.reject('User already exists');
             } else {
+                let handleEmail = new HanldeEmail(clientRequest.nameClient);
+                await handleEmail.SendEmail();
                 return Promise.resolve('Client created Successfully');
             }
         } catch (error) {

@@ -2,6 +2,7 @@ import BaseService from "../BaseComponent.ts/Base_Service";
 import UserInterface from '../../Interfaces/User_Interface';
 import UserModel from '../../Lib/User_Schema';
 import { Service } from 'typedi';
+import HanldeEmail from "../../Handlers/Handle-Email";
 
 @Service()
 export default class UserService extends BaseService<UserInterface> {
@@ -16,6 +17,8 @@ export default class UserService extends BaseService<UserInterface> {
             if (user !== undefined && user.code === 11000) {
                 return Promise.reject('User already exists');
             } else {
+                let handleEmail = new HanldeEmail(userRequest.nameUser);
+                (await handleEmail.SendEmail());
                 return Promise.resolve('User created Successfully');
             }
         } catch (error) {

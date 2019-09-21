@@ -9,7 +9,7 @@ export default class BaseService<T extends Document> {
     }
 
     create(body: any = {}) {
-        return this.modelSchema.create({ ...body }).then((data) => console.log(data)).catch((error) => error);
+        return this.modelSchema.create({ ...body }).catch((error) => error);
     }
 
     views() {
