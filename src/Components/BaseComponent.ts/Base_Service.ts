@@ -17,7 +17,7 @@ export default class BaseService<T extends Document> {
     }
 
     viewByFilter(body: any = {}) {
-        return this.modelSchema.find({ ...body })
+        return this.modelSchema.findOne({ ...body })
     }
 
 

@@ -6,6 +6,7 @@ import Morgan from 'morgan';
 import BodyParser from 'body-parser';
 import Express from 'express';
 import AdmintratorRoute from './Components/AdministratorComponent/Administrator_Route';
+import AuthRoute from './Components/AuthComponent/Auth_Route';
 require('dotenv').config();
 
 /****
@@ -36,7 +37,8 @@ server.use(Morgan('dev'));
 useExpressServer(server, {
     routePrefix: '/api',
     controllers: [
-        AdmintratorRoute
+        AdmintratorRoute,
+        AuthRoute
     ]
 
 })
@@ -45,5 +47,3 @@ useExpressServer(server, {
  * Listen Server
  */
 server.listen(process.env.PORT, () => console.log(`http://localhost:${process.env.PORT}`));
-
-export default server;

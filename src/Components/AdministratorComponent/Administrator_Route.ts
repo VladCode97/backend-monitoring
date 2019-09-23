@@ -1,10 +1,13 @@
-import { JsonController, Get, Post, Body, Res, OnUndefined, HttpCode, Put } from 'routing-controllers';
+import { JsonController, Get, Post, Body, Res, HttpCode, Put, UseBefore} from 'routing-controllers';
 import UserService from './User_Service';
 import handleMessages from '../../Handlers/Handle_Messages';
 import CLientService from './Client_Service';
 import { Inject } from 'typedi';
+import handleTokens from '../../Handlers/Handle_Token';
+
 
 @JsonController('/admin')
+@UseBefore(handleTokens.verifyToken)
 export default class AdmintratorRoute {
 
 
