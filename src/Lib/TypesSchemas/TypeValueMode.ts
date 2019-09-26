@@ -25,7 +25,7 @@ const typeNumber = {
  */
 const typeBoolean = {
     type: Boolean,
-    default: false
+    default: true
 }
 
 /****

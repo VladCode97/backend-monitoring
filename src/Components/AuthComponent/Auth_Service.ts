@@ -21,10 +21,10 @@ export default class AuthService extends BaseService<UserInterface> {
                 let tokenUser = handleTokens.createToken({ email: user.emailUser, role: user.roleUser }, `${process.env.SECRETEHASHTOKEN}`);
                 return Promise.resolve(tokenUser);
             } else {
-                return Promise.reject('Password Incorrect');
+                return Promise.resolve('Password Incorrect');
             }
         } else {
-            return Promise.reject('User not found');
+            return Promise.resolve('User not found');
         }
     }
 

@@ -4,6 +4,7 @@ import 'reflect-metadata';
 import { connect } from 'mongoose';
 import Morgan from 'morgan';
 import BodyParser from 'body-parser';
+import Cors from 'cors';
 import Express from 'express';
 import AdmintratorRoute from './Components/AdministratorComponent/Administrator_Route';
 import AuthRoute from './Components/AuthComponent/Auth_Route';
@@ -28,6 +29,10 @@ connect(process.env.URLMONGOOSE,
 /****
 * Middlewares
 */
+server.use(Cors({
+    origin: 'http://localhost:4200',
+    optionsSuccessStatus: 200
+}));
 server.use(BodyParser.json());
 server.use(BodyParser.urlencoded({ extended: true }));
 server.use(Morgan('dev'));

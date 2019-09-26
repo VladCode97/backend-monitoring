@@ -9,11 +9,11 @@ function verifyToken(request: any, response: any, next?: (err?: any) => any): an
     const { authorization, token } = request.headers;
     if (authorization && token) {
         verify(token, `${process.env.SECRETEHASHTOKEN}`, (error, dataUser) => {
-            if (error) {
+           if (error) {
                 return response.json({
                     error
                 });
-            } else {
+            } else {      
                 next();
             }
         });

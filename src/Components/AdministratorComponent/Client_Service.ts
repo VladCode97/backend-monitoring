@@ -15,8 +15,8 @@ export default class ClientService extends BaseService<ClientInterface> {
     async createClient(clientRequest: any = {}): Promise<String> {
         try {
             let client = (await this.create(clientRequest));
-            if (client !== undefined && client.code === 11000) {
-                return Promise.reject('Client already exists');
+            if (client !== undefined && client.code === 11000){
+                return Promise.resolve('Client already exists');
             } else {
                 let handleEmail = new HanldeEmail(clientRequest.nameClient);
                 await handleEmail.SendEmail();
@@ -42,7 +42,7 @@ export default class ClientService extends BaseService<ClientInterface> {
             let { nameClient, hostClient } = clientRequest;
             let client = (await this.updateByFilter({ nameClient }, { $set: { hostClient } }));
             if (client === null) {
-                return Promise.reject('Error updating client host. Does not exist');
+                return Promise.resolve('Error updating client host. Does not exist');
             } else {
                 return Promise.resolve('Client host updated');
             }

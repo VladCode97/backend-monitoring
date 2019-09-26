@@ -19,7 +19,7 @@ export default class UserService extends BaseService<UserInterface> {
             userRequest.saltPassword = encryptionByPasswordUser.salt;
             let user = (await this.create(userRequest));
             if (user !== undefined && user.code === 11000) {
-                return Promise.reject('User already exists');
+                return Promise.resolve('User already exists');
             } else {
                 let handleEmail = new HanldeEmail(userRequest.nameUser);
                 (await handleEmail.SendEmail());
