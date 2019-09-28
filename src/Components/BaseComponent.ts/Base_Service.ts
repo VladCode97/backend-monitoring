@@ -20,6 +20,17 @@ export default class BaseService<T extends Document> {
         return this.modelSchema.findOne({ ...body })
     }
 
+    viewByFilterAll(body: any = {}) {
+        return this.modelSchema.find({ ...body })
+    }
+
+    viewByPopulateModel(limit: number, modelPopulate: string) {
+        return this.modelSchema.find({}, {}, { sort: { '_id': -1 }, limit }).populate(modelPopulate)
+    }
+
+    viewAgregateByModel(agregations: Array<any>) {
+        return this.modelSchema.aggregate(agregations);
+    }
 
     updateByFilter(conditions = {}, objectUpdate = {}) {
         return this.modelSchema.findOneAndUpdate(

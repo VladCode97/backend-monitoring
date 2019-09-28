@@ -8,13 +8,14 @@ import Cors from 'cors';
 import Express from 'express';
 import AdmintratorRoute from './Components/AdministratorComponent/Administrator_Route';
 import AuthRoute from './Components/AuthComponent/Auth_Route';
+import { containerMetricService } from './Components/MetricComponent/Metric_Service';
 require('dotenv').config();
-
+import NodeCron from 'node-cron';
+import MetricRoute from './Components/MetricComponent/Metric_Route';
 /****
  * Load all injections dependencies (services)
  */
 useContainer(Container);
-
 
 const server = Express();
 
@@ -43,7 +44,8 @@ useExpressServer(server, {
     routePrefix: '/api',
     controllers: [
         AdmintratorRoute,
-        AuthRoute
+        AuthRoute,
+        MetricRoute
     ]
 
 })
@@ -52,3 +54,13 @@ useExpressServer(server, {
  * Listen Server
  */
 server.listen(process.env.PORT, () => console.log(`http://localhost:${process.env.PORT}`));
+
+/****
+ * Cron 5 minutes
+ */
+
+NodeCron.schedule('*/1 * * * *', () => {
+    containerMetricService.createMetric(); //Insert data of metric
+});
+
+

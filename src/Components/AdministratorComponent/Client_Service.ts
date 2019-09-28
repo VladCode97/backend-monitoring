@@ -12,10 +12,19 @@ export default class ClientService extends BaseService<ClientInterface> {
         super(ClientModel);
     }
 
+    async lengthClients(): Promise<number> {
+        let limitClients = (await this.viewClients()).length;
+        if (limitClients !== 0) {
+            return Promise.resolve(limitClients);
+        } else {
+            return Promise.resolve(0);
+        }
+    }
+
     async createClient(clientRequest: any = {}): Promise<String> {
         try {
             let client = (await this.create(clientRequest));
-            if (client !== undefined && client.code === 11000){
+            if (client !== undefined && client.code === 11000) {
                 return Promise.resolve('Client already exists');
             } else {
                 let handleEmail = new HanldeEmail(clientRequest.nameClient);
@@ -30,8 +39,8 @@ export default class ClientService extends BaseService<ClientInterface> {
 
     async viewClients(): Promise<ClientInterface[]> {
         try {
-            let users = await this.views();
-            return Promise.resolve(users);
+            let clients = await this.viewByFilterAll({stateClient: true});
+            return Promise.resolve(clients);
         } catch (error) {
             return Promise.reject('error seeing clients');
         }
@@ -48,6 +57,20 @@ export default class ClientService extends BaseService<ClientInterface> {
             }
         } catch (error) {
             return Promise.reject(error);
+        }
+    }
+
+    async deactivateStateClient(clientRequest): Promise<string> {
+        try {
+            const {nameClient, stateClient} = clientRequest;
+            let user = await this.updateByFilter({nameClient}, {stateClient});
+            if (user === null) {
+                return Promise.resolve('Client not found');    
+            } else {
+                return Promise.resolve('Client status is updated');    
+            }
+        } catch (error) {
+            return Promise.reject('Error deactivating client status ');
         }
     }
 

@@ -5,4 +5,5 @@ export default interface ClientInterface extends Document {
     hostClient: string;
     aliasClient: string;
     emailClient: string;
+    stateClient: boolean;
 }

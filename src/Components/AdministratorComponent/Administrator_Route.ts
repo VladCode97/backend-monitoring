@@ -53,6 +53,20 @@ export default class AdmintratorRoute {
         let client = await this.clientService.updateHostOfClient(clientRequest);
         return handleMessages(response, client);
     }
+
+    @HttpCode(200)
+    @Put('/updateStateUser')
+    async updateStateUser(@Body({required: true}) userRequest: any, @Res() response: any ) {
+        let user = await this.userService.deactivateStateUser(userRequest);
+        return handleMessages(response, user);
+    }
+
+    @HttpCode(200)
+    @Put('/updateStateClient')
+    async updateStateClient(@Body({required: true}) clientRequest: any, @Res() response: any ) {
+        let client = await this.clientService.deactivateStateClient(clientRequest);
+        return handleMessages(response, client);
+    }
 }
 
 

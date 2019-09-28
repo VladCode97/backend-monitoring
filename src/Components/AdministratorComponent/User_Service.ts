@@ -32,8 +32,22 @@ export default class UserService extends BaseService<UserInterface> {
 
 
     async viewUsers(): Promise<UserInterface[]> {
-        let users = await this.views();
+        let users = await this.viewByFilterAll({stateUser: true});
         return Promise.resolve(users);
+    }
+
+    async deactivateStateUser(userRequest): Promise<string> {
+        try {
+            const {nameUser, stateUser} = userRequest;
+            let user = await this.updateByFilter({nameUser}, {stateUser});
+            if (user === null) {
+                return Promise.resolve('User not found');    
+            } else {
+                return Promise.resolve('user status is updated');    
+            }
+        } catch (error) {
+            return Promise.reject('Error deactivating user status ');
+        }
     }
 
 
