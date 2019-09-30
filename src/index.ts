@@ -59,8 +59,8 @@ server.listen(process.env.PORT, () => console.log(`http://localhost:${process.en
  * Cron 5 minutes
  */
 
-NodeCron.schedule('*/1 * * * *', () => {
-    containerMetricService.createMetric(); //Insert data of metric
-});
+//NodeCron.schedule('*1* * * *', () => {
+  //  containerMetricService.createMetric(); //Insert data of metric
+//});
 
 

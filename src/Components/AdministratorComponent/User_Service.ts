@@ -32,7 +32,7 @@ export default class UserService extends BaseService<UserInterface> {
 
 
     async viewUsers(): Promise<UserInterface[]> {
-        let users = await this.viewByFilterAll({stateUser: true});
+        let users = await this.views();
         return Promise.resolve(users);
     }
 
